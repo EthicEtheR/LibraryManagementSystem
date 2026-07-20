@@ -1,5 +1,6 @@
 package com.aether.LibraryManagementSystem.controller;
 
+import com.aether.LibraryManagementSystem.dto.BookResponse;
 import com.aether.LibraryManagementSystem.entities.Book;
 import com.aether.LibraryManagementSystem.entities.Member;
 import com.aether.LibraryManagementSystem.service.BookService;
@@ -13,16 +14,24 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/books")
 public class BookController {
     private final  BookService bookService;
-    private final MemberService memberService;
 
 
-    @PostMapping("/book")
-    public ResponseEntity<Book> addABook(@RequestBody Book book){
 
-        Book resBook= bookService.addingABook(book);
+    @PostMapping
+    public ResponseEntity<BookResponse> addABook(@RequestBody Book book){
+
+        BookResponse resBook= bookService.addingABook(book);
         return ResponseEntity.ok(resBook);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable Long id){
+         bookService.deleteBook(id);
+
+        return ResponseEntity.ok("Book: "+id+" is deleted successfully");
     }
 
 
