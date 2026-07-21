@@ -1,5 +1,6 @@
 package com.aether.LibraryManagementSystem.entities;
 
+import com.aether.LibraryManagementSystem.enums.CopyStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,7 +11,6 @@ public class BookCopy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String barCode;
 
     @Enumerated(EnumType.STRING)
@@ -20,15 +20,7 @@ public class BookCopy {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    public enum CopyStatus {
 
-        AVAILABLE,
-        BORROWED,
-        RESERVED,
-        LOST,
-        DAMAGED
-
-    }
 
 
 }
