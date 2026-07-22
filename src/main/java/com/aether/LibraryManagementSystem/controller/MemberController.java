@@ -3,6 +3,7 @@ package com.aether.LibraryManagementSystem.controller;
 import com.aether.LibraryManagementSystem.entities.Member;
 import com.aether.LibraryManagementSystem.service.MemberService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,9 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<List<Member>> registerMember(@RequestBody List<Member> member){
         List<Member> member1=memberService.registerMember(member);
-        return ResponseEntity.ok(member1);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(member1);
     }
 
     @GetMapping("/{id}")

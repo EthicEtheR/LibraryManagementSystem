@@ -32,7 +32,7 @@ public class BookService {
 
 
     @Transactional
-    public BookResponse addingABook(Book book){
+    public BookResponse addBook(Book book){
 
         log.info("In addBook method");
 

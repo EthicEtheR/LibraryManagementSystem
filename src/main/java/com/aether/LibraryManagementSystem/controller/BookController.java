@@ -7,6 +7,7 @@ import com.aether.LibraryManagementSystem.service.BookService;
 import com.aether.LibraryManagementSystem.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,15 +24,19 @@ public class BookController {
     @PostMapping
     public ResponseEntity<BookResponse> addABook(@RequestBody Book book){
 
-        BookResponse resBook= bookService.addingABook(book);
-        return ResponseEntity.ok(resBook);
+        BookResponse resBook= bookService.addBook(book);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(resBook);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteBook(@PathVariable Long id){
          bookService.deleteBook(id);
 
-        return ResponseEntity.ok("Book: "+id+" is deleted successfully");
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body("Book: "+id+" is deleted successfully");
     }
 
 

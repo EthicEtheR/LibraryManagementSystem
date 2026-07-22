@@ -3,6 +3,7 @@ package com.aether.LibraryManagementSystem.controller;
 import com.aether.LibraryManagementSystem.entities.Genre;
 import com.aether.LibraryManagementSystem.service.GenreService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,9 @@ public class GenreController {
 
         List<Genre> genreList = genreService.addGenres(genres);
 
-        return ResponseEntity.ok(genreList);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(genreList);
 
     }
 

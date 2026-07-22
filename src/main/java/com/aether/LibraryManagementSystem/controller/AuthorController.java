@@ -3,6 +3,7 @@ package com.aether.LibraryManagementSystem.controller;
 import com.aether.LibraryManagementSystem.entities.Author;
 import com.aether.LibraryManagementSystem.service.AuthorService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,9 @@ public class AuthorController {
 
     @PostMapping
     public ResponseEntity<List<Author>> addAuthors(@RequestBody List<Author> authors){
-        return ResponseEntity.ok(authorService.addAuthors(authors));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(authorService.addAuthors(authors));
     }
 
     @GetMapping("/{id}")
@@ -38,13 +41,17 @@ public class AuthorController {
     public ResponseEntity<String> deleteById(@PathVariable Long id){
         authorService.deleteAuthorById(id);
 
-        return ResponseEntity.ok("Deleted "+id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body("Successfully Deleted id: "+id);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Author> updateAuthor(@PathVariable Long id,@RequestBody Author author){
         Author updatedAuthor= authorService.updateAuthor(id,author);
 
-        return ResponseEntity.ok(updatedAuthor);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(updatedAuthor);
     }
 }

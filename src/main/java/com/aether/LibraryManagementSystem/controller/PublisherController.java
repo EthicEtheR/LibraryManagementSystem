@@ -3,6 +3,7 @@ package com.aether.LibraryManagementSystem.controller;
 import com.aether.LibraryManagementSystem.entities.Publisher;
 import com.aether.LibraryManagementSystem.service.PublisherService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,9 @@ public class PublisherController {
     public ResponseEntity<List<Publisher>> addPublishers(@RequestBody List<Publisher> publishers){
         List<Publisher> publisherList=publisherService.addAllPublishers(publishers);
 
-        return ResponseEntity.ok(publisherList);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(publisherList);
     }
 
     @GetMapping
