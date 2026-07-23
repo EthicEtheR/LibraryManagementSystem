@@ -17,8 +17,8 @@ import com.aether.LibraryManagementSystem.repository.BookRepository;
 import com.aether.LibraryManagementSystem.repository.LoanRepository;
 import com.aether.LibraryManagementSystem.repository.MemberRepository;
 import lombok.AllArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.number.money.CurrencyUnitFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +35,8 @@ public class LoanService {
     private final MemberRepository memberRepository;
     private final BookRepository bookRepository;
     private final LoanRepository loanRepository;
-    private final int FINE_PER_DAY= 15 ;
+
+    private static final int FINE_PER_DAY = 15;
 
     @Transactional
     public LoanResponseDto issueLoan(LoanRequest loanRequest) {

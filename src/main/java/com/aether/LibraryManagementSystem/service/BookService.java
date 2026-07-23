@@ -1,5 +1,6 @@
 package com.aether.LibraryManagementSystem.service;
 
+import com.aether.LibraryManagementSystem.dto.BookAvailabilityDto;
 import com.aether.LibraryManagementSystem.dto.BookResponse;
 import com.aether.LibraryManagementSystem.entities.Author;
 import com.aether.LibraryManagementSystem.entities.Book;
@@ -147,4 +148,57 @@ public class BookService {
         else
             throw new ResourceNotFoundException("Book not Found");
     }
+
+    public BookResponse findBookWithTitle(String title){
+        Book book=bookRepository.findByTitleContainingIgnoreCase(title)
+                .orElseThrow(()-> new ResourceNotFoundException("Book not found with title starting with : "+title));
+
+        List<String> authors=book.getAuthors()
+                .stream()
+                .map(Author::getAuthorName)
+                .toList();
+
+        List<String> genres=book.getGenres()
+                .stream()
+                .map(Genre::getName)
+                .toList();
+
+
+        BookResponse response=new BookResponse();
+
+        response.setIsbn(book.getIsbn());
+        response.setTitle(book.getTitle());
+        response.setPublisher(book.getPublisher().getPublisherName());
+        response.setAuthors(authors);
+        response.setGenres(genres);
+
+        return response;
+    }
+    public BookResponse findBookByAuthorName(String name){
+        Book book=bookRepository.findBookByAuthorName(name)
+                .orElseThrow(()->new ResourceNotFoundException("Book not found ,Please enter correct author name"));
+        BookResponse response=new BookResponse();
+
+
+        List<String> authors=book.getAuthors()
+                .stream()
+                .map(Author::getAuthorName)
+                .toList();
+
+        List<String> genres=book.getGenres()
+                .stream()
+                .map(Genre::getName)
+                .toList();
+
+        response.setIsbn(book.getIsbn());
+        response.setTitle(book.getTitle());
+        response.setPublisher(book.getPublisher().getPublisherName());
+        response.setAuthors(authors);
+        response.setGenres(genres);
+
+        return response;
+
+    }
+
+
 }

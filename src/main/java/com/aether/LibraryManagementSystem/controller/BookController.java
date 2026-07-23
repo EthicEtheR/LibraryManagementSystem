@@ -1,17 +1,13 @@
 package com.aether.LibraryManagementSystem.controller;
 
+import com.aether.LibraryManagementSystem.dto.BookAvailabilityDto;
 import com.aether.LibraryManagementSystem.dto.BookResponse;
 import com.aether.LibraryManagementSystem.entities.Book;
-import com.aether.LibraryManagementSystem.entities.Member;
 import com.aether.LibraryManagementSystem.service.BookService;
-import com.aether.LibraryManagementSystem.service.MemberService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -39,6 +35,13 @@ public class BookController {
                 .body("Book: "+id+" is deleted successfully");
     }
 
+    @GetMapping
+    public ResponseEntity<BookResponse> findBookByTitle(@RequestParam String title){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(bookService.findBookWithTitle(title));
+    }
 
+   
 
 }
